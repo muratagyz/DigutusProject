@@ -1,15 +1,22 @@
-﻿<div class="container row-cols-3 pt-5" align="center">
-    <form>
+﻿@model DigutusProject.Core.DTOs.UserLoginDto
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @ViewBag.Message
+    </div>
+}
+<div class="container row-cols-3 pt-5" align="center">
+    <form asp-action="Login" method="post">
         <!-- Email input -->
         <div class="form-outline mb-4">
-            <input type="email" id="form2Example1" class="form-control" />
-            <label class="form-label" for="form2Example1">Email address</label>
+            <input asp-for="Email" type="email" id="form2Example1" class="form-control" />
+            <label asp-for="Email" class="form-label" for="form2Example1">Email address</label>
         </div>
 
         <!-- Password input -->
         <div class="form-outline mb-4">
-            <input type="password" id="form2Example2" class="form-control" />
-            <label class="form-label" for="form2Example2">Password</label>
+            <input asp-for="Password" type="password" id="form2Example2" class="form-control" />
+            <label asp-for="Password" class="form-label" for="form2Example2">Password</label>
         </div>
 
         <!-- 2 column grid layout for inline styling -->
@@ -22,7 +29,7 @@
         </div>
 
         <!-- Submit button -->
-        <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+        <input type="submit" class="btn btn-primary btn-block mb-4" value="Sign in"></input>
 
         <!-- Register buttons -->
         <div class="text-center">

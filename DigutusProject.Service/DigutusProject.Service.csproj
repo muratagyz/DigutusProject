@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DigutusProject.Core\DigutusProject.Core.csproj" />
+    <ProjectReference Include="..\DigutusProject.Mail\DigutusProject.Mail.csproj" />
   </ItemGroup>
 
   <ItemGroup>

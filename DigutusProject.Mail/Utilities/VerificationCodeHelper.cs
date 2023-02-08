@@ -2,17 +2,16 @@
 
 public class VerificationCodeHelper
 {
-    private static List<int> VerificationCode = new List<int>();
-
-    public List<int> CreateVerificationCode()
+    public static string verificationCode { get; set; }
+    public static string CreateVerificationCode()
     {
-        Random rastgele = new Random();
+        Random rnd = new Random();
         for (int i = 1; i <= 6; i++)
         {
-            int result = rastgele.Next(1, 100);
-            VerificationCode.Add(result);
+            int result = rnd.Next(1, 10);
+            verificationCode += result.ToString();
         }
 
-        return VerificationCode;
+        return verificationCode;
     }
 }

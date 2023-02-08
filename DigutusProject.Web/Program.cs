@@ -1,14 +1,13 @@
-using System.Reflection;
 using DigutusProject.Core.Repositories;
 using DigutusProject.Core.Services;
 using DigutusProject.Core.UnitOfWorks;
-using DigutusProject.Core.Utilities.Security.Encyption;
+using DigutusProject.Mail;
 using DigutusProject.Repository.DbContext;
 using DigutusProject.Repository.Repositories;
 using DigutusProject.Repository.UnitOfWork;
 using DigutusProject.Service.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +21,8 @@ builder.Services.AddDbContext<DigutusProjectDbContext>(x =>
         options.MigrationsAssembly(Assembly.GetAssembly(typeof(DigutusProjectDbContext)).GetName().Name);
     });
 });
+
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 //{
@@ -45,6 +46,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IMailService, MailService>();
 
 var app = builder.Build();
 
