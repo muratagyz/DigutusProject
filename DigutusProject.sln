@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigutusProject.Repository", "DigutusProject.Repository\DigutusProject.Repository.csproj", "{01CF84E5-3B3A-4B9F-B1F0-47615248D49C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigutusProject.Repository", "DigutusProject.Repository\DigutusProject.Repository.csproj", "{01CF84E5-3B3A-4B9F-B1F0-47615248D49C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigutusProject.Core", "DigutusProject.Core\DigutusProject.Core.csproj", "{E6176268-3DA7-4B08-AD5D-5954CF78E271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigutusProject.Core", "DigutusProject.Core\DigutusProject.Core.csproj", "{E6176268-3DA7-4B08-AD5D-5954CF78E271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigutusProject.Service", "DigutusProject.Service\DigutusProject.Service.csproj", "{C10B0719-370D-45E9-8D5C-764C35904C7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigutusProject.Service", "DigutusProject.Service\DigutusProject.Service.csproj", "{C10B0719-370D-45E9-8D5C-764C35904C7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigutusProject.TESTAPI", "DigutusProject.TESTAPI\DigutusProject.TESTAPI.csproj", "{D2B5973B-0770-4D09-A0F1-36FBFFABF582}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigutusProject.Web", "DigutusProject.Web\DigutusProject.Web.csproj", "{CDD44217-6205-4E20-B298-529278D915B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigutusProject.Web", "DigutusProject.Web\DigutusProject.Web.csproj", "{CDD44217-6205-4E20-B298-529278D915B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigutusProject.UnitTest", "DigutusProject.UnitTest\DigutusProject.UnitTest.csproj", "{06DCB176-717F-4539-BA9D-4A9364BDD1D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigutusProject.Mail", "DigutusProject.Mail\DigutusProject.Mail.csproj", "{208F5153-EA82-42E4-8906-A79FF467E7C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,14 +33,18 @@ Global
 		{C10B0719-370D-45E9-8D5C-764C35904C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C10B0719-370D-45E9-8D5C-764C35904C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C10B0719-370D-45E9-8D5C-764C35904C7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D2B5973B-0770-4D09-A0F1-36FBFFABF582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D2B5973B-0770-4D09-A0F1-36FBFFABF582}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D2B5973B-0770-4D09-A0F1-36FBFFABF582}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2B5973B-0770-4D09-A0F1-36FBFFABF582}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CDD44217-6205-4E20-B298-529278D915B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CDD44217-6205-4E20-B298-529278D915B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDD44217-6205-4E20-B298-529278D915B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDD44217-6205-4E20-B298-529278D915B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06DCB176-717F-4539-BA9D-4A9364BDD1D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06DCB176-717F-4539-BA9D-4A9364BDD1D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06DCB176-717F-4539-BA9D-4A9364BDD1D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06DCB176-717F-4539-BA9D-4A9364BDD1D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{208F5153-EA82-42E4-8906-A79FF467E7C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{208F5153-EA82-42E4-8906-A79FF467E7C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{208F5153-EA82-42E4-8906-A79FF467E7C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{208F5153-EA82-42E4-8906-A79FF467E7C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
