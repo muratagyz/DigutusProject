@@ -9,13 +9,13 @@
     <form asp-action="Login" method="post">
         <!-- Email input -->
         <div class="form-outline mb-4">
-            <input asp-for="Email" type="email" id="form2Example1" class="form-control" />
+            <input asp-for="Email" required type="email" id="form2Example1" class="form-control" />
             <label asp-for="Email" class="form-label" for="form2Example1">Email address</label>
         </div>
 
         <!-- Password input -->
         <div class="form-outline mb-4">
-            <input asp-for="Password" type="password" id="form2Example2" class="form-control" />
+            <input asp-for="Password" required type="password" id="form2Example2" class="form-control" />
             <label asp-for="Password" class="form-label" for="form2Example2">Password</label>
         </div>
 
@@ -24,7 +24,7 @@
 
             <div class="col">
                 <!-- Simple link -->
-                <a href="#!">Forgot password?</a>
+                <a href="~/Auth/ResetPassword">Forgot password?</a>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
 
         <!-- Register buttons -->
         <div class="text-center">
-            <p>Not a member? <a href="#!">Register</a></p>
+            <p>Not a member? <a href="~/Auth/Register">Register</a></p>
             <p>or sign up with:</p>
             <button type="button" class="btn btn-link btn-floating mx-1">
                 <i class="fab fa-facebook-f"></i>

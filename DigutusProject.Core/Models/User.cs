@@ -10,5 +10,5 @@ public class User : BaseEntity
     public string Email { get; set; }
     public byte[] PasswordSalt { get; set; }
     public byte[] PasswordHash { get; set; }
-    public Role Role { get; set; }
+    public Role Role { get; set; } = Role.User;
 }

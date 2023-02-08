@@ -46,11 +46,11 @@ public class UserServiceUnitTest
         var user = new User()
         {
             Id = new Guid(),
-            Role = Role.Admin,
+            Role = Role.User,
             CreateDate = DateTime.Now,
-            Email = "test@test",
-            FirstName = "admin",
-            LastName = "admin",
+            Email = "user@user",
+            FirstName = "user",
+            LastName = "user",
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt
         };
