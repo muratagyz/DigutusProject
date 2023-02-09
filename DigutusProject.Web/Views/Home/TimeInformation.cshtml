@@ -1,0 +1,45 @@
+﻿@model List<DigutusProject.Core.Models.Time>
+
+@{
+    TimeSpan result = TimeSpan.Zero;
+    int ModelCount = Model.Count;
+}
+
+@if (Model != null)
+{
+    <div class="container">
+        <b>Toplam Sayı : @Model.Count() </b><br />
+        <i>(Sadece son 1 günü gösterilir.)</i>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Giriş Yapma Başlama Tarihi</th>
+                    <th scope="col">Giriş Yapma Bitiş Tarihi</th>
+                    <th scope="col">Giriş Yapma Süresi</th>
+                    <th scope="col">Oluşturma Tarihi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.StartTime</td>
+                        <td>@item.EndTime</td>
+                        <td>@(item.EndTime - item.StartTime)</td>
+                        <td>@item.CreateDate</td>
+                    </tr>
+
+
+                    {
+                        result = result + (item.EndTime - item.StartTime);
+                    }
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+    <b>Ortalama:</b> @(result / ModelCount)
+}

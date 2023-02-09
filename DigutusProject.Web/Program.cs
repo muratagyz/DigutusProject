@@ -22,9 +22,16 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ILogRepository, LogRepository>();
+builder.Services.AddScoped<ITimeRepository, TimeRepository>();
+
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITimeService, TimeService>();
+builder.Services.AddScoped<ILogService, LogService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddTransient<ITokenHelper, JwtHelper>();

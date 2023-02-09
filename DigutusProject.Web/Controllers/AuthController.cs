@@ -1,4 +1,5 @@
 ﻿using DigutusProject.Core.DTOs;
+using DigutusProject.Core.Models;
 using DigutusProject.Core.Services;
 using DigutusProject.Mail.Utilities;
 using DigutusProject.Web.Models;
@@ -9,12 +10,18 @@ namespace DigutusProject.Web.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
+        private ILogService _logService;
+        private ITimeService _timeService;
         public static string Code { get; set; }
         public static string Email { get; set; }
+        public static DateTime StartTime { get; set; }
+        public static DateTime EndTime { get; set; }
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, ILogService logService, ITimeService timeService)
         {
             _authService = authService;
+            _logService = logService;
+            _timeService = timeService;
         }
 
         public async Task<IActionResult> Login(string? message)
@@ -30,6 +37,9 @@ namespace DigutusProject.Web.Controllers
 
             if (!result)
                 return RedirectToAction("Login", new { message = "Kullanıcı adı veya şifre yanlış" });
+
+            StartTime = DateTime.Now;
+            await _logService.SignedInAndNotVerified(userLoginDto.Email);
 
             Code = await _authService.GetVerificationCode(userLoginDto.Email);
             VerificationCodeHelper.verificationCode = "";
@@ -65,7 +75,9 @@ namespace DigutusProject.Web.Controllers
                 {
                     var token = await _authService.LoginSuccessAsync(Email);
                     HttpContext.Session.SetString("JWToken", token.Token.ToString());
-
+                    await _logService.SignedInAndVerified(Email);
+                    EndTime = DateTime.Now;
+                    await _timeService.Calculation(StartTime, EndTime);
                     return RedirectToAction("Index", "Home");
                 }
 
