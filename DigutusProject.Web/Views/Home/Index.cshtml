@@ -71,4 +71,9 @@
 
 <h1>Sisteme Hoş Geldiniz</h1>
 <br />
-@Html.ActionLink("Çıkış Yap", "LogOut", "Home")
+@if (@Acessor.HttpContext.Session.GetString("Role") == "Admin")
+{
+    @Html.ActionLink("Doğrulama kodu gönderip giriş yapmayanlar", "LogInformation", "Home")<br/>
+    @Html.ActionLink("Giriş süresi hesaplama", "TimeInformation", "Home")
+}<br/>
+    @Html.ActionLink("Çıkış Yap", "LogOut", "Home")
