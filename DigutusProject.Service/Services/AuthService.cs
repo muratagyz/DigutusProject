@@ -112,4 +112,10 @@ public class AuthService : IAuthService
 
         return true;
     }
+
+    public async Task<string> GetUserRole(string email)
+    {
+        var user = await _userService.Where(x => x.Email == email).FirstOrDefaultAsync();
+        return user.Role.ToString();
+    }
 }

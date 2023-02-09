@@ -1,4 +1,42 @@
 ﻿@model List<DigutusProject.Core.Models.Log>
+
+@section Scripts
+{
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+            var connection = new signalR.HubConnectionBuilder().configureLogging(signalR.LogLevel.Information).withAutomaticReconnect([1000, 5000, 7000]).withUrl("https://localhost:7052/MyHub").build();
+
+            function Start() {
+                connection.start().then(() => {
+                    $("#loading").hide();
+                }).catch((err) => {
+                    console.log(err);
+                    setTimeout(() =>
+                        Start(), 2000
+                    )
+                });
+            }
+
+            Start();
+            connection.onreconnecting(err => {
+                $("#loading").show();
+
+            });
+            connection.onreconnected(connectionId => {
+                $("#loading").hide();
+
+            });
+            connection.onclose(() => {
+                $("#loading").hide();
+
+                Start();
+            });
+        });
+    </script>
+}
+
 @if (Model != null)
 {
     <div class="container">

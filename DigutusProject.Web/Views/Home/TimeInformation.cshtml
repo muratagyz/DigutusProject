@@ -1,5 +1,42 @@
 ﻿@model List<DigutusProject.Core.Models.Time>
 
+@section Scripts
+{
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+            var connection = new signalR.HubConnectionBuilder().configureLogging(signalR.LogLevel.Information).withAutomaticReconnect([1000, 5000, 7000]).withUrl("https://localhost:7052/MyHub").build();
+
+            function Start() {
+                connection.start().then(() => {
+                    $("#loading").hide();
+                }).catch((err) => {
+                    console.log(err);
+                    setTimeout(() =>
+                        Start(), 2000
+                    )
+                });
+            }
+
+            Start();
+            connection.onreconnecting(err => {
+                $("#loading").show();
+
+            });
+            connection.onreconnected(connectionId => {
+                $("#loading").hide();
+
+            });
+            connection.onclose(() => {
+                $("#loading").hide();
+
+                Start();
+            });
+        });
+    </script>
+}
+
 @{
     TimeSpan result = TimeSpan.Zero;
     int ModelCount = Model.Count;
@@ -8,38 +45,39 @@
 @if (Model != null)
 {
     <div class="container">
-        <b>Toplam Sayı : @Model.Count() </b><br />
+        <b>Toplam Sayı : @Model.Count() </b><br/>
         <i>(Sadece son 1 günü gösterilir.)</i>
         <table class="table">
             <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Giriş Yapma Başlama Tarihi</th>
-                    <th scope="col">Giriş Yapma Bitiş Tarihi</th>
-                    <th scope="col">Giriş Yapma Süresi</th>
-                    <th scope="col">Oluşturma Tarihi</th>
-                </tr>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Giriş Yapma Başlama Tarihi</th>
+                <th scope="col">Giriş Yapma Bitiş Tarihi</th>
+                <th scope="col">Giriş Yapma Süresi</th>
+                <th scope="col">Oluşturma Tarihi</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.StartTime</td>
+                    <td>@item.EndTime</td>
+                    <td>@(item.EndTime - item.StartTime)</td>
+                    <td>@item.CreateDate</td>
+                </tr>
+
+
                 {
-                    <tr>
-                        <th scope="row">@item.Id</th>
-                        <td>@item.StartTime</td>
-                        <td>@item.EndTime</td>
-                        <td>@(item.EndTime - item.StartTime)</td>
-                        <td>@item.CreateDate</td>
-                    </tr>
-
-
-                    {
-                        result = result + (item.EndTime - item.StartTime);
-                    }
-
+                    result = result + (item.EndTime - item.StartTime);
                 }
+
+            }
 
             </tbody>
         </table>
     </div>
-    <b>Ortalama:</b> @(result / ModelCount)
+    <b>Ortalama:</b>
+    @(result / ModelCount)
 }

@@ -10,4 +10,5 @@ public interface IAuthService
     Task<string> RegisterAsync(UserRegisterDto userRegisterDto);
     Task<string> GetVerificationCode(string email);
     Task<bool> ResetPassword(string email);
+    Task<string> GetUserRole(string email);
 }

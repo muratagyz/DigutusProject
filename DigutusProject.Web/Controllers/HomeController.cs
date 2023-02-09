@@ -1,12 +1,10 @@
-﻿using DigutusProject.Core.Enums;
-using DigutusProject.Core.Services;
+﻿using DigutusProject.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DigutusProject.Web.Controllers
 {
-    //[Authorize]
+
     public class HomeController : Controller
     {
         private readonly ILogService _logService;
@@ -18,11 +16,13 @@ namespace DigutusProject.Web.Controllers
             _timeService = timeService;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> LogInformation()
         {
             var tenDaysAgo = DateTime.Now.AddDays(-1);
@@ -31,12 +31,20 @@ namespace DigutusProject.Web.Controllers
             return View(Logs);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> TimeInformation()
         {
             var tenDaysAgo = DateTime.Now.AddDays(-1);
             var Times = _timeService.Where(x => x.CreateDate >= tenDaysAgo).ToList();
 
             return View(Times);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> LogOut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Auth");
         }
     }
 }

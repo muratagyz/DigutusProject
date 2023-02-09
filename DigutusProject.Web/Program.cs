@@ -13,12 +13,15 @@ using DigutusProject.Core.Utilities.Security.Encyption;
 using DigutusProject.Core.Utilities.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using DigutusProject.Core.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 var tokenOptions = builder.Configuration.GetSection(key: "TokenOptions").Get<TokenOptions>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSignalR();
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
@@ -35,6 +38,8 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IMailService, MailService>();
 builder.Services.AddTransient<ITokenHelper, JwtHelper>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
@@ -106,5 +111,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Auth}/{action=Login}/{id?}");
+
+app.MapHub<MyHub>("/MyHub");
 
 app.Run();

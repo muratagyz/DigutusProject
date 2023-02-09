@@ -1,1 +1,74 @@
-﻿Hello
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor Acessor;
+
+@section Scripts
+{
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(() => {
+            var connection = new signalR.HubConnectionBuilder().configureLogging(signalR.LogLevel.Information).withAutomaticReconnect([1000, 5000, 7000]).withUrl("https://localhost:7052/MyHub").build();
+
+            function Start() {
+                connection.start().then(() => {
+                    $("#loading").hide();
+                }).catch((err) => {
+                    console.log(err);
+                    setTimeout(() =>
+                        Start(), 2000
+                    )
+                });
+            }
+
+            Start();
+            connection.onreconnecting(err => {
+                $("#loading").show();
+
+            });
+            connection.onreconnected(connectionId => {
+                $("#loading").hide();
+
+            });
+            connection.onclose(() => {
+                $("#loading").hide();
+
+                Start();
+            });
+            connection.on("ReceiveClientCount", (clientCount) => {
+                $("#clientCount").text(clientCount);
+            });
+            connection.on("Notify", (countText) => {
+                $("#notify").html(`<div class="alert alert-warning"> ${countText} </div>`);
+            });
+        });
+    </script>
+}
+@if (@Acessor.HttpContext.Session.GetString("Role") == "Admin")
+{
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="alert alert-info">
+                <div class="float-start">
+                    Çevrimiçi Sayısı: <strong id="clientCount"></strong>
+                </div>
+                <div class="float-end">
+                    <div id="loading" class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div id="notify"></div>
+        </div>
+        <div class="col-md-8 offset-2">
+            <ul class="list-group" id="namesList">
+            </ul>
+        </div>
+    </div>
+}
+
+
+<h1>Sisteme Hoş Geldiniz</h1>
+<br />
+@Html.ActionLink("Çıkış Yap", "LogOut", "Home")

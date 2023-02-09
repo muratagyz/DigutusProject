@@ -73,8 +73,10 @@ namespace DigutusProject.Web.Controllers
             if (verificationCodeViewModel.Code != null)
                 if (Code == verificationCodeViewModel.Code)
                 {
+                    var role = await _authService.GetUserRole(Email);
                     var token = await _authService.LoginSuccessAsync(Email);
                     HttpContext.Session.SetString("JWToken", token.Token.ToString());
+                    HttpContext.Session.SetString("Role", role);
                     await _logService.SignedInAndVerified(Email);
                     EndTime = DateTime.Now;
                     await _timeService.Calculation(StartTime, EndTime);
